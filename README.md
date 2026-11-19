@@ -28,7 +28,7 @@ streamlit run app/app.py
 
 ## Live demo
 
-Deployed free on Streamlit Community Cloud: _link added after deployment_.
+Deployed free on Streamlit Community Cloud: https://multi-disease-ml-framework.streamlit.app/
 
 ---
 
