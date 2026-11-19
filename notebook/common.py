@@ -26,6 +26,14 @@ from sklearn.metrics import (
 from xgboost import XGBClassifier
 
 sns.set_theme(style="whitegrid")
+# A bright, saturated palette used consistently across every chart in this
+# project, matching the deployed app's own branding, instead of seaborn's
+# default muted/pastel colors.
+BRIGHT_BLUE = "#2563EB"
+BRIGHT_RED = "#DC2626"
+BRIGHT_GREEN = "#16A34A"
+BRIGHT_PALETTE = ["#2563EB", "#DC2626", "#16A34A", "#D97706", "#7C3AED", "#0891B2"]
+sns.set_palette(BRIGHT_PALETTE)
 
 RESULTS = []  # one row per (disease, model); feeds the cross-disease comparison
 
@@ -57,7 +65,7 @@ def class_balance_plot(y, disease_name, figures_dir, positive_label="Positive"):
     fig, ax = plt.subplots(figsize=(5, 4))
     counts = pd.Series(y).value_counts().sort_index()
     labels = ["Negative", positive_label] if len(counts) == 2 else counts.index.astype(str)
-    ax.bar(labels, counts.values, color=["#4C72B0", "#C44E52"])
+    ax.bar(labels, counts.values, color=[BRIGHT_BLUE, BRIGHT_RED])
     ax.set_title(f"{disease_name}: Class Balance")
     ax.set_ylabel("Number of patients")
     for i, v in enumerate(counts.values):
@@ -154,8 +162,8 @@ def run_shap(model, X_train, X_test, disease_name, figures_dir, model_kind="tree
         explainer = shap.Explainer(model.predict_proba, X_train, algorithm="permutation")
         shap_values = explainer(X_test).values[:, :, 1]
 
-    fig = plt.figure(figsize=(8, 6))
-    shap.summary_plot(shap_values, X_test, show=False)
+    shap.summary_plot(shap_values, X_test, show=False, max_display=12, plot_size=(11, 5))
+    fig = plt.gcf()
     plt.title(f"{disease_name}: SHAP Feature Importance")
     plt.tight_layout()
     out = os.path.join(figures_dir, f"{disease_name.lower().replace(' ', '_')}_shap_summary.png")
@@ -214,15 +222,16 @@ def summary_statistics_image(df, disease_name, figures_dir):
 def missing_values_plot(df, disease_name, figures_dir):
     nulls = df.isnull().sum()
     nulls = nulls[nulls > 0].sort_values(ascending=False)
-    fig, ax = plt.subplots(figsize=(8, max(3, 0.35 * len(nulls) + 1)))
+    fig, ax = plt.subplots(figsize=(max(9, 0.45 * len(nulls) + 2), 4.2))
     if len(nulls) == 0:
         ax.text(0.5, 0.5, "No missing values in this raw dataset", ha="center", va="center", fontsize=12)
         ax.axis("off")
     else:
-        ax.barh(nulls.index[::-1], nulls.values[::-1], color="#C44E52")
-        ax.set_xlabel("Number of missing values")
-        for i, v in enumerate(nulls.values[::-1]):
-            ax.text(v + max(nulls.values) * 0.01, i, str(v), va="center")
+        ax.bar(nulls.index, nulls.values, color=BRIGHT_RED)
+        ax.set_ylabel("Number of missing values")
+        plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
+        for i, v in enumerate(nulls.values):
+            ax.text(i, v + max(nulls.values) * 0.01, str(v), ha="center", va="bottom")
     ax.set_title(f"{disease_name}: Missing Values by Feature (raw data)")
     fig.tight_layout()
     out = os.path.join(figures_dir, f"{_slug(disease_name)}_missing_values.png")
@@ -239,7 +248,7 @@ def feature_distributions_plot(df, disease_name, figures_dir, exclude=("target",
     fig, axes = plt.subplots(n_rows, n_cols, figsize=(4 * n_cols, 3 * n_rows))
     axes = np.array(axes).reshape(-1)
     for i, col in enumerate(numeric.columns):
-        axes[i].hist(numeric[col].dropna(), bins=20, color="#4C72B0", edgecolor="white")
+        axes[i].hist(numeric[col].dropna(), bins=20, color=BRIGHT_BLUE, edgecolor="white")
         axes[i].set_title(col, fontsize=10)
     for j in range(i + 1, len(axes)):
         axes[j].axis("off")
@@ -258,7 +267,11 @@ def boxplots_by_class(df, target_col, disease_name, figures_dir, top_features, p
         axes = [axes]
     for ax, col in zip(axes, top_features):
         data = [df.loc[df[target_col] == 0, col], df.loc[df[target_col] == 1, col]]
-        ax.boxplot(data, tick_labels=["Negative", positive_label])
+        bp = ax.boxplot(data, tick_labels=["Negative", positive_label], patch_artist=True,
+                         medianprops=dict(color="white", linewidth=2))
+        for patch, color in zip(bp["boxes"], [BRIGHT_BLUE, BRIGHT_RED]):
+            patch.set_facecolor(color)
+            patch.set_alpha(0.85)
         ax.set_title(col, fontsize=10)
     fig.suptitle(f"{disease_name}: Top Features by Outcome Class", fontsize=13)
     fig.tight_layout()
@@ -290,7 +303,7 @@ def builtin_feature_importance_plot(model, feature_names, disease_name, figures_
         return
     importances = pd.Series(model.feature_importances_, index=feature_names).sort_values(ascending=False).head(12)
     fig, ax = plt.subplots(figsize=(7, 5))
-    ax.barh(importances.index[::-1], importances.values[::-1], color="#55A868")
+    ax.barh(importances.index[::-1], importances.values[::-1], color=BRIGHT_GREEN)
     ax.set_xlabel("Importance")
     ax.set_title(f"{disease_name}: {model_name} Built-in Feature Importance")
     fig.tight_layout()
@@ -324,38 +337,89 @@ def shap_dependence_plot(model, X_train, X_test, top_feature, disease_name, figu
 
 def workflow_diagram(figures_dir):
     steps = [
-        "3 Public Clinical\nDatasets\n(CKD, Heart, Diabetes)",
-        "Cleaning &\nImputation",
-        "Train / Test\nSplit (80/20)",
-        "Train 3 Models\n(RF, XGBoost,\nStacked Ensemble)",
-        "Evaluate\n(Accuracy, F1,\nROC-AUC)",
-        "SHAP\nExplainability",
-        "Interactive\nStreamlit Tool",
+        "1. Three Public\nClinical Datasets",
+        "2. Cleaning and\nImputation",
+        "3. Train / Test\nSplit (80 / 20)",
+        "4. Train Three\nModels",
+        "5. Evaluate on\nFive Metrics",
+        "6. SHAP\nExplainability",
+        "7. Interactive\nStreamlit Tool",
     ]
+    import matplotlib.lines as mlines
     import matplotlib.patches as mpatches
+    from matplotlib.patches import FancyBboxPatch
 
-    fig, ax = plt.subplots(figsize=(16, 3))
-    ax.axis("off")
+    # A single consistent accent color throughout, in the plain bordered-box
+    # style used in published methodology figures, not a rainbow gradient.
+    fill_color = "#1D4ED8"
+    edge_color = "#1E3A8A"
+    line_color = "#1E293B"
+
     n = len(steps)
-    box_w, box_h, gap = 2.0, 1.1, 0.5
+    n_cols = 3
+    n_rows = int(np.ceil(n / n_cols))
+    box_w, box_h = 2.5, 1.0
+    hgap, vgap = 0.9, 0.9
+
+    def pos(i):
+        row = i // n_cols
+        col = i % n_cols
+        x = col * (box_w + hgap)
+        y = (n_rows - 1 - row) * (box_h + vgap)  # row 0 (steps 1-3) at the top
+        return x, y
+
+    fig, ax = plt.subplots(figsize=(9.0, 2.3 * n_rows))
+    ax.axis("off")
+    ax.set_facecolor("white")
+    fig.patch.set_facecolor("white")
+
     for i, step in enumerate(steps):
-        x = i * (box_w + gap)
-        ax.add_patch(plt.Rectangle((x, 0), box_w, box_h, facecolor="#4C72B0", edgecolor="black",
-                                    alpha=0.85, zorder=2))
-        ax.text(x + box_w / 2, box_h / 2, step, ha="center", va="center", color="white",
-                fontsize=9, wrap=True, zorder=3)
-        if i < n - 1:
+        x, y = pos(i)
+        box = FancyBboxPatch(
+            (x, y), box_w, box_h,
+            boxstyle="round,pad=0.02,rounding_size=0.08",
+            linewidth=1.5, edgecolor=edge_color, facecolor=fill_color, zorder=2,
+        )
+        ax.add_patch(box)
+        ax.text(x + box_w / 2, y + box_h / 2, step, ha="center", va="center",
+                color="white", fontsize=10.5, fontweight="bold", linespacing=1.45, zorder=3)
+
+        is_last_in_row = (i % n_cols == n_cols - 1) or (i == n - 1)
+        if not is_last_in_row and i < n - 1:
+            # plain straight arrow to the next box in the same row
+            nx, ny = pos(i + 1)
             arrow = mpatches.FancyArrowPatch(
-                (x + box_w, box_h / 2), (x + box_w + gap, box_h / 2),
-                arrowstyle="-|>", mutation_scale=20, linewidth=2, color="black", zorder=1,
+                (x + box_w + 0.06, y + box_h / 2), (nx - 0.06, ny + box_h / 2),
+                arrowstyle="-|>", mutation_scale=16, linewidth=1.8, color=line_color, zorder=1,
             )
             ax.add_patch(arrow)
-    ax.set_xlim(-0.3, n * (box_w + gap))
-    ax.set_ylim(-0.3, box_h + 0.3)
-    ax.set_title("Unified Framework: End-to-End Methodology", fontsize=13)
+        elif i < n - 1:
+            # orthogonal elbow connector from the end of this row down to the
+            # start of the next row: straight segments only, one arrowhead.
+            nx, ny = pos(i + 1)
+            start = (x + box_w / 2, y)
+            end = (nx + box_w / 2, ny + box_h + 0.06)
+            mid_y = y - vgap / 2
+            ax.add_line(mlines.Line2D([start[0], start[0]], [start[1], mid_y],
+                                       color=line_color, linewidth=1.8, zorder=1))
+            ax.add_line(mlines.Line2D([start[0], end[0]], [mid_y, mid_y],
+                                       color=line_color, linewidth=1.8, zorder=1))
+            arrow = mpatches.FancyArrowPatch(
+                (end[0], mid_y), (end[0], end[1]),
+                arrowstyle="-|>", mutation_scale=16, linewidth=1.8, color=line_color, zorder=1,
+            )
+            ax.add_patch(arrow)
+
+    total_w = n_cols * (box_w + hgap) - hgap
+    total_h = n_rows * (box_h + vgap) - vgap
+    ax.set_xlim(-0.3, total_w + 0.3)
+    ax.set_ylim(-0.3, total_h + 0.4)
+    ax.set_aspect("equal")
+    ax.set_title("Unified Framework: End-to-End Methodology", fontsize=14,
+                 fontweight="bold", color="#0F172A", pad=10)
     fig.tight_layout()
     out = os.path.join(figures_dir, "workflow_diagram.png")
-    fig.savefig(out, dpi=150, bbox_inches="tight")
+    fig.savefig(out, dpi=200, bbox_inches="tight", facecolor="white")
     plt.close(fig)
     print("saved", out)
 
