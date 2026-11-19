@@ -1,0 +1,373 @@
+{
+  "Chronic Kidney Disease": {
+    "fields": [
+      {
+        "name": "age",
+        "min": 2.0,
+        "max": 90.0,
+        "default": 55.0,
+        "is_int": true
+      },
+      {
+        "name": "bp",
+        "min": 50.0,
+        "max": 180.0,
+        "default": 80.0,
+        "is_int": true
+      },
+      {
+        "name": "sg",
+        "min": 1.005,
+        "max": 1.025,
+        "default": 1.02,
+        "is_int": false
+      },
+      {
+        "name": "al",
+        "min": 0.0,
+        "max": 5.0,
+        "default": 0.0,
+        "is_int": true
+      },
+      {
+        "name": "su",
+        "min": 0.0,
+        "max": 5.0,
+        "default": 0.0,
+        "is_int": true
+      },
+      {
+        "name": "rbc",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 1.0,
+        "is_int": true
+      },
+      {
+        "name": "pc",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 1.0,
+        "is_int": true
+      },
+      {
+        "name": "pcc",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "is_int": true
+      },
+      {
+        "name": "ba",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "is_int": true
+      },
+      {
+        "name": "bgr",
+        "min": 22.0,
+        "max": 490.0,
+        "default": 121.0,
+        "is_int": true
+      },
+      {
+        "name": "bu",
+        "min": 1.5,
+        "max": 391.0,
+        "default": 42.0,
+        "is_int": false
+      },
+      {
+        "name": "sc",
+        "min": 0.4,
+        "max": 76.0,
+        "default": 1.3,
+        "is_int": false
+      },
+      {
+        "name": "sod",
+        "min": 4.5,
+        "max": 163.0,
+        "default": 138.0,
+        "is_int": false
+      },
+      {
+        "name": "pot",
+        "min": 2.5,
+        "max": 47.0,
+        "default": 4.4,
+        "is_int": false
+      },
+      {
+        "name": "hemo",
+        "min": 3.1,
+        "max": 17.8,
+        "default": 12.649999999999999,
+        "is_int": false
+      },
+      {
+        "name": "pcv",
+        "min": 9.0,
+        "max": 54.0,
+        "default": 40.0,
+        "is_int": true
+      },
+      {
+        "name": "wbcc",
+        "min": 2200.0,
+        "max": 26400.0,
+        "default": 8000.0,
+        "is_int": true
+      },
+      {
+        "name": "rbcc",
+        "min": 2.1,
+        "max": 8.0,
+        "default": 4.8,
+        "is_int": false
+      },
+      {
+        "name": "htn",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "is_int": true
+      },
+      {
+        "name": "dm",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "is_int": true
+      },
+      {
+        "name": "cad",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "is_int": true
+      },
+      {
+        "name": "appet",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "is_int": true
+      },
+      {
+        "name": "pe",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "is_int": true
+      },
+      {
+        "name": "ane",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "is_int": true
+      }
+    ],
+    "categorical_options": {
+      "rbc": [
+        "abnormal",
+        "normal"
+      ],
+      "pc": [
+        "abnormal",
+        "normal"
+      ],
+      "pcc": [
+        "notpresent",
+        "present"
+      ],
+      "ba": [
+        "notpresent",
+        "present"
+      ],
+      "htn": [
+        "no",
+        "yes"
+      ],
+      "dm": [
+        "no",
+        "yes"
+      ],
+      "cad": [
+        "no",
+        "yes"
+      ],
+      "appet": [
+        "good",
+        "poor"
+      ],
+      "pe": [
+        "no",
+        "yes"
+      ],
+      "ane": [
+        "no",
+        "yes"
+      ]
+    }
+  },
+  "Heart Disease": {
+    "fields": [
+      {
+        "name": "age",
+        "min": 29.0,
+        "max": 77.0,
+        "default": 56.0,
+        "is_int": true
+      },
+      {
+        "name": "sex",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 1.0,
+        "is_int": true
+      },
+      {
+        "name": "cp",
+        "min": 1.0,
+        "max": 4.0,
+        "default": 3.0,
+        "is_int": true
+      },
+      {
+        "name": "trestbps",
+        "min": 94.0,
+        "max": 200.0,
+        "default": 130.0,
+        "is_int": true
+      },
+      {
+        "name": "chol",
+        "min": 126.0,
+        "max": 564.0,
+        "default": 241.0,
+        "is_int": true
+      },
+      {
+        "name": "fbs",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "is_int": true
+      },
+      {
+        "name": "restecg",
+        "min": 0.0,
+        "max": 2.0,
+        "default": 1.0,
+        "is_int": true
+      },
+      {
+        "name": "thalach",
+        "min": 71.0,
+        "max": 202.0,
+        "default": 153.0,
+        "is_int": true
+      },
+      {
+        "name": "exang",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "is_int": true
+      },
+      {
+        "name": "oldpeak",
+        "min": 0.0,
+        "max": 6.2,
+        "default": 0.8,
+        "is_int": false
+      },
+      {
+        "name": "slope",
+        "min": 1.0,
+        "max": 3.0,
+        "default": 2.0,
+        "is_int": true
+      },
+      {
+        "name": "ca",
+        "min": 0.0,
+        "max": 3.0,
+        "default": 0.0,
+        "is_int": true
+      },
+      {
+        "name": "thal",
+        "min": 3.0,
+        "max": 7.0,
+        "default": 3.0,
+        "is_int": true
+      }
+    ],
+    "categorical_options": {}
+  },
+  "Diabetes": {
+    "fields": [
+      {
+        "name": "Pregnancies",
+        "min": 0.0,
+        "max": 17.0,
+        "default": 3.0,
+        "is_int": true
+      },
+      {
+        "name": "Glucose",
+        "min": 44.0,
+        "max": 199.0,
+        "default": 117.0,
+        "is_int": true
+      },
+      {
+        "name": "BloodPressure",
+        "min": 24.0,
+        "max": 122.0,
+        "default": 72.0,
+        "is_int": true
+      },
+      {
+        "name": "SkinThickness",
+        "min": 7.0,
+        "max": 99.0,
+        "default": 29.0,
+        "is_int": true
+      },
+      {
+        "name": "Insulin",
+        "min": 14.0,
+        "max": 846.0,
+        "default": 125.0,
+        "is_int": true
+      },
+      {
+        "name": "BMI",
+        "min": 18.2,
+        "max": 67.1,
+        "default": 32.3,
+        "is_int": false
+      },
+      {
+        "name": "DiabetesPedigreeFunction",
+        "min": 0.078,
+        "max": 2.42,
+        "default": 0.3725,
+        "is_int": false
+      },
+      {
+        "name": "Age",
+        "min": 21.0,
+        "max": 81.0,
+        "default": 29.0,
+        "is_int": true
+      }
+    ],
+    "categorical_options": {}
+  }
+}

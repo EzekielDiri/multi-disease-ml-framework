@@ -1,0 +1,10 @@
+Disease,Model,Accuracy,Precision,Recall,F1,ROC-AUC
+Chronic Kidney Disease,Random Forest,1.0,1.0,1.0,1.0,1.0
+Chronic Kidney Disease,XGBoost,0.988,1.0,0.98,0.99,1.0
+Chronic Kidney Disease,Stacked Ensemble,1.0,1.0,1.0,1.0,1.0
+Heart Disease,Random Forest,0.918,0.871,0.964,0.915,0.958
+Heart Disease,XGBoost,0.869,0.794,0.964,0.871,0.931
+Heart Disease,Stacked Ensemble,0.902,0.844,0.964,0.9,0.951
+Diabetes,Random Forest,0.734,0.644,0.537,0.586,0.816
+Diabetes,XGBoost,0.753,0.66,0.611,0.635,0.822
+Diabetes,Stacked Ensemble,0.753,0.682,0.556,0.612,0.823
