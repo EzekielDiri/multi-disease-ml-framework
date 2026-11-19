@@ -1,9 +1,33 @@
 # A Unified Explainable Ensemble Machine Learning Framework for Early Prediction of Multiple Chronic Diseases Using Routine Clinical Biomarkers
 
-Research project supporting a Global Talent (academic/research) visa application. The same ensemble
-pipeline, Random Forest, XGBoost, and a stacked ensemble of both, each explained with SHAP, is
-trained separately on three public clinical datasets (Chronic Kidney Disease, Heart Disease, and
-Diabetes), then compared across all three.
+The same ensemble pipeline, Random Forest, XGBoost, and a stacked ensemble of both, each explained
+with SHAP, is trained separately on three public clinical datasets (Chronic Kidney Disease, Heart
+Disease, and Diabetes), then compared across all three to see which clinical indicators carry
+predictive weight across different conditions.
+
+## Method
+
+![Methodology overview](figures/workflow_diagram.png)
+
+Each dataset goes through the same stages: cleaning and imputation, an 80/20 train-test split,
+training all three models, evaluating them on accuracy, precision, recall, F1 and ROC-AUC, then
+explaining the best-performing model with SHAP.
+
+## Results
+
+![F1 score by model and disease](figures/cross_disease_f1_comparison.png)
+
+Chronic Kidney Disease is close to perfectly separable on this dataset, a known property of the
+benchmark itself. Heart Disease and Diabetes are harder, which is typical for these two datasets in
+the wider literature.
+
+![Diabetes confusion matrix and ROC curve](figures/diabetes_confusion_roc.png)
+
+![Diabetes SHAP feature importance](figures/diabetes_shap_summary.png)
+
+SHAP consistently ranks the clinically expected features at the top for each condition: hemoglobin
+and serum creatinine for kidney disease, thalassemia and chest pain type for heart disease, glucose
+and BMI for diabetes.
 
 ## Project layout
 
