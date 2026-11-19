@@ -330,7 +330,7 @@ def workflow_diagram(figures_dir):
         "Train 3 Models\n(RF, XGBoost,\nStacked Ensemble)",
         "Evaluate\n(Accuracy, F1,\nROC-AUC)",
         "SHAP\nExplainability",
-        "Deployed\nStreamlit Tool",
+        "Interactive\nStreamlit Tool",
     ]
     import matplotlib.patches as mpatches
 

@@ -1,10 +1,8 @@
-"""Multi-Disease Risk Predictor. A small deployed demonstration of the
-research notebook's three trained models (Chronic Kidney Disease, Heart
-Disease, Diabetes), each with a per-prediction SHAP explanation.
+"""Multi-Disease Risk Predictor. A small demonstration of the research
+notebook's three trained models (Chronic Kidney Disease, Heart Disease,
+Diabetes), each with a per-prediction SHAP explanation.
 
-Run locally:   streamlit run app.py
-Deploy free:   push this folder's contents to a GitHub repo, then connect
-               that repo on share.streamlit.io (Streamlit Community Cloud).
+Run with: streamlit run app.py
 """
 import json
 import os
