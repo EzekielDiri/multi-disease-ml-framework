@@ -149,15 +149,29 @@ CUSTOM_CSS = """
 .block-container {padding-top: 2rem; padding-bottom: 3rem; max-width: 800px;}
 
 .app-header {
-    padding: 1.75rem 2rem;
+    padding: 2.25rem 2rem;
     border-radius: 16px;
     background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
     color: white;
     margin-bottom: 1.1rem;
     box-shadow: 0 12px 28px -8px rgba(30, 64, 175, 0.45);
+    text-align: center;
 }
-.app-header h1 {color: white; font-size: 1.75rem; margin: 0 0 0.4rem 0;}
-.app-header p {color: #DBEAFE; font-size: 0.95rem; margin: 0; line-height: 1.5;}
+.app-header h1 {
+    color: white;
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    margin: 0 0 0.6rem 0;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+}
+.app-header p {
+    color: #DBEAFE;
+    font-size: 1.1rem;
+    margin: 0 auto;
+    line-height: 1.6;
+    max-width: 640px;
+}
 
 .stat-row {display: flex; gap: 0.75rem; margin-bottom: 1.75rem;}
 .stat-chip {
