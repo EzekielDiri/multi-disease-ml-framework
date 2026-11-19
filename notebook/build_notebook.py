@@ -15,8 +15,8 @@ def code(text):
 # ---------------------------------------------------------------- title ----
 md("""# A Unified Explainable Ensemble Machine Learning Framework for Early Prediction of Multiple Chronic Diseases Using Routine Clinical Biomarkers
 
-This notebook trains and explains the same ensemble learning pipeline — Random Forest, XGBoost, and a
-stacked ensemble of both — separately on three public clinical datasets (Chronic Kidney Disease, Heart
+This notebook trains and explains the same ensemble learning pipeline (Random Forest, XGBoost, and a
+stacked ensemble of both) separately on three public clinical datasets (Chronic Kidney Disease, Heart
 Disease, and Diabetes), then compares results and feature importance across all three. Every chart,
 table and dataset preview is saved to the project's `figures/` folder for use in the research paper.""")
 
@@ -225,7 +225,7 @@ md("""### Notes for the paper
 - `figures/` now holds, per disease: a raw and cleaned dataset preview table, a missing-values chart,
   summary statistics, class balance, correlation heatmap, feature distributions, boxplots by class,
   a full metrics comparison, built-in model feature importance, SHAP summary, and a SHAP dependence
-  plot for the single most important feature — plus one methodology diagram and the cross-disease F1
+  plot for the single most important feature, plus one methodology diagram and the cross-disease F1
   comparison.
 - `paper/all_results.csv` holds every metric for all nine model runs (3 diseases x 3 models).
 - `paper/top5_features_per_disease.csv` holds the top 5 SHAP-ranked features per disease.

@@ -27,14 +27,14 @@ from xgboost import XGBClassifier
 
 sns.set_theme(style="whitegrid")
 
-RESULTS = []  # one row per (disease, model) — feeds the cross-disease comparison
+RESULTS = []  # one row per (disease, model); feeds the cross-disease comparison
 
 # --- compatibility fix -----------------------------------------------------
 # XGBoost 3.x stores "base_score" in its raw model dump as a bracketed
 # single-element array string (e.g. "[5E-1]") instead of a plain number.
 # shap 0.49.1's model loader calls float() on it directly and crashes. This
 # patch normalizes that one field right after shap decodes the raw model,
-# before its own parsing code touches it — nothing else is changed.
+# before its own parsing code touches it. Nothing else is changed.
 _original_decode_ubjson = _shap_tree.decode_ubjson_buffer
 
 
@@ -314,7 +314,7 @@ def shap_dependence_plot(model, X_train, X_test, top_feature, disease_name, figu
 
     fig = plt.figure(figsize=(7, 5))
     shap.dependence_plot(top_feature, shap_values, X_test, show=False, ax=plt.gca())
-    plt.title(f"{disease_name}: SHAP Dependence — {top_feature}")
+    plt.title(f"{disease_name}: SHAP Dependence on {top_feature}")
     plt.tight_layout()
     out = os.path.join(figures_dir, f"{_slug(disease_name)}_shap_dependence_{top_feature}.png")
     plt.savefig(out, dpi=150, bbox_inches="tight")
