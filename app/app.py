@@ -149,7 +149,7 @@ CUSTOM_CSS = """
 .block-container {padding-top: 2rem; padding-bottom: 3rem; max-width: 800px;}
 
 .app-header {
-    padding: 2.25rem 2rem;
+    padding: 3rem 2rem 2.5rem;
     border-radius: 16px;
     background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
     color: white;
@@ -162,15 +162,21 @@ CUSTOM_CSS = """
     font-size: 2.6rem;
     font-weight: 800;
     letter-spacing: 0.01em;
-    margin: 0 0 0.6rem 0;
+    margin: 0 0 0.9rem 0;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
 }
 .app-header p {
     color: #DBEAFE;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     margin: 0 auto;
     line-height: 1.6;
     max-width: 640px;
+}
+.app-header .app-header-note {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin: 0.9rem auto 0;
 }
 
 .stat-row {display: flex; gap: 0.75rem; margin-bottom: 1.75rem;}
@@ -383,8 +389,8 @@ st.markdown(
         <p>A demonstration tool built on the models from the research paper
         "A Unified Explainable Ensemble Machine Learning Framework for Early
         Prediction of Multiple Chronic Diseases Using Routine Clinical
-        Biomarkers." For research and educational use only. It is not a
-        diagnostic device.</p>
+        Biomarkers."</p>
+        <p class="app-header-note">For research and educational use only. It is not a diagnostic device.</p>
     </div>
     <div class="stat-row">
         <div class="stat-chip"><span class="stat-chip-num">3</span><span class="stat-chip-label">Conditions</span></div>
