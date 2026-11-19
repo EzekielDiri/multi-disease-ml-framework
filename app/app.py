@@ -267,7 +267,7 @@ if submitted:
     feature_order = [f["name"] for f in schema[disease]["fields"]]
     X_row = pd.DataFrame([[values[name] for name in feature_order]], columns=feature_order)
 
-    proba = model.predict_proba(X_row)[0][1]
+    proba = float(model.predict_proba(X_row)[0][1])
     pred = int(proba >= 0.5)
 
     css_class = "result-high" if pred else "result-low"
